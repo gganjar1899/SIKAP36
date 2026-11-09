@@ -128,12 +128,14 @@ $("#root").innerHTML=`<div class="lg-wrap" style="text-align: center;">
     <input type="text" id="uid" inputmode="numeric" autocomplete="username" maxlength="20" autocapitalize="off">
     <label for="upw">${sis?"Kata sandi (huruf)":"Kata sandi"}</label>
     <input type="password" id="upw" autocomplete="current-password" autocapitalize="off">
+    <label style="display:flex;gap:.5rem;align-items:center;font-weight:600;margin:.6rem 0 0;min-height:44px"><input type="checkbox" id="showpw" style="width:20px;height:20px;accent-color:#6b4fd6"> Tampilkan kata sandi</label>
     <div class="err" id="le" role="alert"></div>
     <button class="btn full" id="lb" type="submit" style="margin-top:1rem; font-size: 1.05rem;">Masuk</button>
   </form>
   <p class="mute" style="margin-top:1.2rem; font-size: 0.85rem;">Lupa kata sandi? Minta wali kelas untuk mengatur ulang.</p>
 </div>`;
 document.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{S.lrole=b.dataset.r;loginView()});
+$("#showpw").onchange=e=>{$("#upw").type=e.target.checked?"text":"password"};
 $("#fl").onsubmit=async e=>{e.preventDefault();const id=$("#uid").value.trim(),pw=$("#upw").value,er=$("#le"),bt=$("#lb");er.textContent="";
 const ok=sis?/^\d{10}$/.test(id):/^\d{8,20}$/.test(id);
 if(!ok){er.textContent=sis?"NISN harus 10 angka.":"NIP harus berupa angka.";return}
