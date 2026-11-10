@@ -9,11 +9,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <style>
 :root{--g1:#FFFFFF;--g2:#F7F2FF;--g3:#E9DFFF;--sf:#fff;--ink:#303344;--mute:#5f6174;--line:#E6E0F5;--pri:#6b4fd6;--lav:#A78BFA;--lavl:#F0EAFE;--cor:#E4574A;--corb:#C2453A;--on:#2B9A72;--off:#8C88A6;--mix:100%;--ok:#1d6b45;--err:#a1281c;--sh:0 1px 2px rgba(48,51,68,.06),0 8px 20px rgba(107,79,214,.08);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
-:root{color-scheme:light}
+:root{color-scheme:light;--w:480px}
+@media(min-width:760px){:root{--w:640px}}
 *{box-sizing:border-box}html,body{margin:0}
 body{color:var(--ink);font:16px/1.55 "Plus Jakarta Sans",system-ui,sans-serif;min-height:100vh;background-color:#FBF8FF;background-image:radial-gradient(120% 55% at 100% 0%,rgba(167,139,250,.20),transparent 62%),radial-gradient(110% 50% at 0% 100%,rgba(255,211,166,.28),transparent 62%),linear-gradient(180deg,#FFFFFF 0%,#FCFAFF 40%,#F1EAFF 100%);background-attachment:fixed}
 h1,h2,h3{margin:0;font-family:Lora,Georgia,serif;font-weight:600;line-height:1.2}
-.wrap{max-width:480px;margin:0 auto;padding:1rem 1rem 130px}
+.wrap{max-width:var(--w);margin:0 auto;padding:1rem 1rem 130px}.wrap.wide{--w:1000px}
 .top{display:flex;justify-content:space-between;align-items:center;gap:.5rem}
 .logo{font:800 1.3rem/1 "Plus Jakarta Sans",sans-serif;letter-spacing:1.5px;color:var(--pri);display:flex;align-items:center;gap:.4rem}
 .b7{background:var(--corb);color:#fff;border-radius:8px;padding:.1rem .45rem;letter-spacing:0;font-size:1.25rem}
@@ -36,7 +37,7 @@ h1,h2,h3{margin:0;font-family:Lora,Georgia,serif;font-weight:600;line-height:1.2
 button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--pri);outline-offset:2px}
 .fab{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 16px rgba(60,40,120,.28);color:#fff;z-index:4}
 .fab svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-.fl{left:max(16px,calc(50% - 240px + 8px));background:#6b4fd6}.fr{right:max(16px,calc(50% - 240px + 8px));background:#C2453A}
+.fl{left:max(16px,calc(50% - var(--w)/2 + 8px));background:#6b4fd6}.fr{right:max(16px,calc(50% - var(--w)/2 + 8px));background:#C2453A}
 .btn{font:700 .98rem "Plus Jakarta Sans",sans-serif;min-height:46px;padding:.5rem 1.2rem;border-radius:14px;border:0;background:#6b4fd6;color:#fff;cursor:pointer}
 .btn:disabled{opacity:.6;cursor:wait}.btn.sec{background:transparent;color:var(--pri);border:1.5px solid var(--pri)}.btn.full{width:100%}
 .segc{display:flex;background:var(--lavl);border-radius:14px;padding:4px;margin:.8rem 0 1.1rem}
@@ -67,6 +68,29 @@ nav.tabs button[aria-current=page]{color:var(--ink);border-top-color:var(--pri)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .emb{display:block;flex:none;border-radius:50%;background:#fff;padding:7px;border:1px solid var(--line);box-sizing:border-box;box-shadow:var(--sh);object-fit:contain}
 .logo .emb{width:40px;height:40px;padding:3px;margin-right:.15rem}
+select{width:100%;font:inherit;color:var(--ink);background:var(--sf);border:1.5px solid var(--off);border-radius:12px;padding:.6rem .75rem}
+.btn.sm{min-height:40px;padding:.3rem .8rem;font-size:.85rem}
+.g2{display:grid;gap:1.2rem}.slist{display:grid;gap:.6rem}.srow{flex-wrap:wrap}
+@media(min-width:900px){.g2,.slist{grid-template-columns:1fr 1fr}.slist .card{margin-bottom:0!important}
+nav.tabs{top:0;bottom:auto;border-top:0;border-bottom:1px solid var(--line);justify-content:center;gap:.5rem;padding:.3rem 0}
+nav.tabs button{flex:none;min-width:150px;min-height:46px;border-top:0;border-bottom:4px solid transparent}
+nav.tabs button[aria-current=page]{border-bottom-color:var(--pri)}
+.wrap.wide{padding-top:76px}}
+.rp{background:#fff;color:#303344;border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);width:min(100%,794px);margin:0 auto 1.2rem;padding:26px 30px;font-size:12.5px;line-height:1.45}
+.rhd{display:flex;align-items:center;gap:10px}.rhd img{border-radius:50%;border:1px solid #E6E0F5;padding:2px}
+.rwm{font:800 22px/1 "Plus Jakarta Sans",sans-serif;color:#6b4fd6;display:flex;align-items:center;gap:6px;letter-spacing:1px}.rwm span{background:#C2453A;color:#fff;border-radius:7px;padding:2px 8px;font-size:18px;letter-spacing:0}
+.rtag{margin-left:auto;font-weight:700;color:#5f6174}
+.rt{font:600 24px/1.2 Lora,Georgia,serif;margin:12px 0 2px;color:#303344}.rs{margin:0 0 10px;color:#5f6174}
+.rid{display:flex;gap:24px;border-bottom:1.5px solid #E6E0F5;padding-bottom:8px;margin-bottom:12px;flex-wrap:wrap}.rid small{display:block;color:#5f6174;font-size:10.5px}.rid b{font-size:13px}
+.rcards{display:grid;grid-template-columns:1fr 1fr;gap:12px}.rcard{border-radius:14px;padding:12px 14px}.rlv{font:600 22px/1.2 Lora,serif;margin:4px 0 8px}.rseg{display:flex;gap:4px}.rseg i{width:34px;height:8px;border-radius:4px;border:1px solid rgba(0,0,0,.08)}
+.rcols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:12px}.rh{font:700 12.5px "Plus Jakarta Sans",sans-serif;margin:0 0 6px}
+.rhab{display:grid;grid-template-columns:120px 1fr 46px;gap:6px;align-items:center;margin:3px 0;font-size:11px}.rb{height:8px;border-radius:4px;background:#EFEAF9;overflow:hidden}.rb i{display:block;height:100%;border:1px solid rgba(48,51,68,.35);border-radius:4px;box-sizing:border-box}.rhab b{text-align:right}
+.rn{font-size:10.5px;color:#5f6174;margin:8px 0 0}.rq{font:italic 13px/1.5 Lora,Georgia,serif;margin:0}
+.rdate{text-align:right;margin-top:14px}.rsig{display:grid;grid-template-columns:1fr 1fr;gap:30px;text-align:center;margin-top:4px}.rsig p{margin:0;font-weight:700}.rline{height:58px;border-bottom:1px dotted #5f6174;margin:0 20px 4px}.rsig small{display:block;color:#5f6174;font-size:10.5px}.rsig b{display:block;font-size:12px}
+.rft{margin-top:14px;padding-top:6px;border-top:1px solid #E6E0F5;font-size:10px;color:#5f6174}
+@media print{@page{size:A4;margin:10mm}html,body{background:#fff!important}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.noprint,nav.tabs,.top,#toast,dialog,.fab{display:none!important}.wrap,.wrap.wide{max-width:none!important;padding:0!important}
+.rp{box-shadow:none!important;border:0!important;border-radius:0!important;margin:0!important;width:auto!important;padding:0!important;break-after:page}.rp:last-of-type{break-after:auto}}
 </style></head><body>
 <div id="root"></div>
 <dialog id="dgr" aria-labelledby="dgrt"><form id="fr" novalidate><h3 id="dgrt" style="font-size:1.4rem">Refleksi hari ini</h3>
@@ -101,7 +125,7 @@ const H=[
 {n:"Tidur cepat",e:"🌙",f:"#C3C9F5",m:["Kemandirian","Kesehatan"],d:"Istirahat cukup supaya besok segar.",c:["Bersiap tidur tepat waktu","Mematikan gawai lebih awal","Tidur di waktu teratur"]}];
 const ic={chart:'<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',plus:'<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',back:'<svg viewBox="0 0 24 24"><path d="M20 12H5M11 6l-6 6 6 6"/></svg>'};
 const fab=(c,id,l,i)=>`<button class="fab ${c}" id="${id}" aria-label="${l}" title="${l}">${i}</button>`;
-const S={profile:null,student:null,entries:[],refl:[],v:"home",hid:null,tab:"hari",pop:null,cls:null,studs:[],sum:[],grefl:[],gv:"sum",lrole:"siswa"};
+const S={profile:null,uid:null,periode:"",ass:[],notes:[],kb:[],mg:[],mref:[],lap:false,lsid:null,psids:[],title0:"",student:null,entries:[],refl:[],v:"home",hid:null,tab:"hari",pop:null,cls:null,studs:[],sum:[],grefl:[],gv:"sum",lrole:"siswa"};
 const T=()=>todayStr();
 const topbar=()=>`<div class="top"><div class="logo" role="img" aria-label="SIKAP 36"><img class="emb" src="${EMB}" alt="" width="38" height="38">SIKAP<span class="b7">36</span></div><div class="tl"><button class="lk" id="bpw">Ganti sandi</button><button class="lk" id="bout">Keluar</button></div></div>`;
 function wireTop(){const a=$("#bpw"),b=$("#bout");if(a)a.onclick=()=>{$("#pe").textContent="";$("#fp").reset();$("#dgp").showModal()};if(b)b.onclick=async()=>{await sb.auth.signOut();location.reload()}}
@@ -157,12 +181,12 @@ return `${topbar()}<p class="date">${tgl}</p><h2 class="hello">Halo, ${esc(title
 <div class="card sum"><strong>${n} dari 7 kebiasaan dicatat hari ini</strong><div class="bar" role="img" aria-label="${n} dari 7"><i style="width:${n/7*100}%"></i></div><p class="mute" style="margin:.5rem 0 0">Geser tombol saat sudah dilakukan. Ketuk nama untuk menulis cerita atau melewati.</p></div>
 <h3 class="sec">Kebiasaanku</h3>${H.map((h,i)=>{const d=m[i],ok=d&&d.status==="dicatat";return `<div class="row ${S.pop===i?"pop":""}" style="--f:${h.f}"><span class="ic" aria-hidden="true">${h.e}</span><button class="nm" data-h="${i}" aria-label="Buka jurnal ${h.n}"><b>${h.n}</b><small class="${ok?"d":""}">${st(d)}</small></button><button class="sw" role="switch" aria-checked="${!!ok}" data-s="${i}" aria-label="Tandai ${h.n} hari ini"><i></i></button></div>`}).join("")}
 ${fab("fl","gp","Lihat progres saya",ic.chart)}${fab("fr","gr","Tulis refleksi hari ini",ic.plus)}`}
-function detailS(){const i=S.hid,h=H[i],d=emap()[i];return `${topbar()}<div style="display:flex;gap:.8rem;align-items:center;margin:1.4rem 0 .6rem"><span class="ic" style="--f:${h.f}" aria-hidden="true">${h.e}</span><h2 style="font-size:1.6rem">${h.n}</h2></div><p style="margin:.2rem 0">${h.d}</p>
+function detailS(){const i=S.hid,h=H[i],d=emap()[i];return `${topbar()}<button class="btn sec" id="bk" style="margin-top:1rem;min-height:40px;padding:.3rem 1rem;font-size:.9rem">← Kembali</button><div style="display:flex;gap:.8rem;align-items:center;margin:1rem 0 .6rem"><span class="ic" style="--f:${h.f}" aria-hidden="true">${h.e}</span><h2 style="font-size:1.6rem">${h.n}</h2></div><p style="margin:.2rem 0">${h.d}</p>
 <p class="mute" style="margin:.4rem 0 0">Melatih:</p><div>${h.m.map(x=>`<span class="chip">${x}</span>`).join("")}</div><p class="mute" style="margin:.3rem 0 0;font-size:.8rem">Pemetaan awal mengikuti contoh Panduan Kokurikuler. Dimensi sebenarnya ditetapkan guru untuk tiap tema.</p>
-<form class="card" id="fj" style="margin-top:1rem" novalidate><fieldset style="border:0;padding:0;margin:0"><legend style="margin-top:0">Aktivitas apa yang kamu lakukan hari ini?</legend><div class="opts">${h.c.concat(["Lainnya (tulis di catatan)"]).map(c=>`<label class="opt"><input type="radio" name="a" value="${esc(c)}" ${d&&d.activity===c?"checked":""}>${esc(c)}</label>`).join("")}</div></fieldset>
+<form class="card" id="fj" style="margin-top:1rem" novalidate><fieldset style="border:0;padding:0;margin:0"><legend style="margin-top:0">Aktivitas apa yang kamu lakukan hari ini? <span class="mute" style="font-weight:600">(boleh lebih dari satu)</span></legend><div class="opts">${h.c.concat(["Lainnya (tulis di catatan)"]).map(c=>`<label class="opt"><input type="checkbox" name="a" value="${esc(c)}" ${d&&d.activity&&d.activity.split("; ").includes(c)?"checked":""}>${esc(c)}</label>`).join("")}</div></fieldset>
 <label for="nt">Catatan singkat (boleh dikosongkan)</label><input type="text" id="nt" maxlength="160" value="${d?esc(d.note):""}"><div class="err" id="je" role="alert"></div>
 <div style="display:flex;gap:.6rem;margin-top:1rem;flex-wrap:wrap"><button class="btn" type="submit" id="jb">${d&&d.status==="dicatat"?"Perbarui jurnal":"Simpan jurnal"}</button><button class="btn sec" type="button" id="sk">Lewati hari ini</button></div></form>
-<h3 class="sec" style="margin-top:1.4rem">Riwayat</h3>${S.entries.filter(e=>e.habit===i+1&&e.activity).sort((a,b)=>b.entry_date.localeCompare(a.entry_date)).slice(0,10).map(e=>`<div class="hi"><strong>${dLabel(e.entry_date)}</strong><br>${esc(e.activity)}${e.note?` · ${esc(e.note)}`:""}</div>`).join("")||'<p class="mute">Belum ada riwayat. Catatan pertamamu akan muncul di sini.</p>'}${fab("fr","bk","Kembali",ic.back)}`}
+<h3 class="sec" style="margin-top:1.4rem">Riwayat</h3>${S.entries.filter(e=>e.habit===i+1&&e.activity).sort((a,b)=>b.entry_date.localeCompare(a.entry_date)).slice(0,10).map(e=>`<div class="hi"><strong>${dLabel(e.entry_date)}</strong><br>${esc(e.activity)}${e.note?` · ${esc(e.note)}`:""}</div>`).join("")||'<p class="mute">Belum ada riwayat. Catatan pertamamu akan muncul di sini.</p>'}`}
 function ringsvg(p){const c=2*Math.PI*78;return `<svg viewBox="0 0 200 200" role="img" aria-label="Rata-rata kebiasaan dicatat ${p} persen"><circle cx="100" cy="100" r="78" fill="none" stroke="var(--cor)" stroke-width="18"/><circle cx="100" cy="100" r="78" fill="none" stroke="var(--pri)" stroke-width="18" stroke-linecap="round" stroke-dasharray="${c*p/100} ${c}" transform="rotate(-90 100 100)"/><text x="100" y="100">${p}%</text></svg>`}
 const bars=(v,l,mx)=>{const w=300/v.length,cl=["#FFE69A","#A8E6CF","#A9D6F5","#FFD3A6","#C3C9F5"];return `<div class="card" style="margin-top:1rem"><strong style="font-size:.92rem">Jumlah kebiasaan dicatat</strong><svg viewBox="0 0 320 140" role="img" aria-label="Grafik jumlah kebiasaan dicatat: ${l.map((x,i)=>x+" "+v[i]).join(", ")}" style="width:100%">${v.map((n,i)=>{const h=n/mx*80,x=10+i*w+w*.18;return `<rect x="${x}" y="${100-h}" width="${w*.64}" height="${Math.max(h,3)}" rx="7" fill="${cl[i%5]}" stroke="#7a6bb0" stroke-width="1.3"/><text x="${x+w*.32}" y="${93-h}" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor">${n}</text><text x="${x+w*.32}" y="122" text-anchor="middle" font-size="11" fill="currentColor" opacity=".75">${l[i]}</text>`}).join("")}</svg></div>`};
 const dayCount=d=>S.entries.filter(e=>e.entry_date===d&&e.status==="dicatat").length;
@@ -172,57 +196,125 @@ const v=H.map((_,i)=>t==="hari"?(m[i]&&m[i].status==="dicatat"?100:0):pct(i)),p=
 let chart="";if(t==="minggu"){const ds=[...Array(7)].map((_,k)=>addDays(T(),k-6));chart=bars(ds.map(dayCount),ds.map(dowShort),7)}
 if(t==="bulan"){const g=[0,1,2,3].map(b=>{let s=0;for(let k=0;k<7;k++)s+=dayCount(addDays(T(),-(27-b*7-(6-k))));return s});chart=bars(g,["Mgg 1","Mgg 2","Mgg 3","Mgg 4"],49)}
 const dims=[...new Set(H.flatMap((h,i)=>m[i]&&m[i].status==="dicatat"?h.m:[]))];
-return `${topbar()}<h2 style="font-size:1.7rem;margin-top:1.4rem">Progresku</h2><div class="segc" role="group" aria-label="Rentang waktu">${[["hari","Hari"],["minggu","Minggu"],["bulan","Bulan"]].map(([k,l])=>`<button data-t="${k}" aria-pressed="${t===k}">${l}</button>`).join("")}</div>
+return `${topbar()}<button class="btn sec" id="bk" style="margin-top:1rem;min-height:40px;padding:.3rem 1rem;font-size:.9rem">← Kembali</button><h2 style="font-size:1.7rem;margin-top:1rem">Progresku</h2><div class="segc" role="group" aria-label="Rentang waktu">${[["hari","Hari"],["minggu","Minggu"],["bulan","Bulan"]].map(([k,l])=>`<button data-t="${k}" aria-pressed="${t===k}">${l}</button>`).join("")}</div>
 <div class="ringw">${ringsvg(p)}</div><div class="lg"><span><i style="background:var(--pri)"></i>Dicatat</span><span><i style="background:var(--cor)"></i>Belum dicatat</span></div>${chart}
 <div class="card" style="margin-top:1rem">${H.map((h,i)=>`<div class="pr" style="--f:${h.f}"><span class="ic" aria-hidden="true">${h.e}</span><span style="font-weight:700;font-size:.92rem">${h.n}</span><b>${t==="hari"?(m[i]?(m[i].status==="dilewati"?"Dilewati":"Dicatat"):"Belum"):v[i]+"%"}</b><div class="bar"><i style="width:${v[i]}%"></i></div></div>`).join("")}</div>
 <div class="apr">${p>=60?"Kamu sudah konsisten. Terima kasih sudah berusaha!":"Setiap catatan adalah langkah. Besok kita coba lagi, pelan-pelan saja."}</div>
 <p class="mute">Dimensi yang kamu latih hari ini: ${dims.join(", ")||"belum ada"}.</p><p class="mute">Ini perkembanganmu sendiri, bukan perbandingan dengan teman.</p>
 <h3 class="sec" style="margin-top:1.4rem">Riwayat kegiatan</h3>${S.entries.filter(e=>e.activity).sort((a,b)=>b.entry_date.localeCompare(a.entry_date)).slice(0,12).map(e=>`<div class="hi"><strong>${dLabel(e.entry_date)} · ${H[e.habit-1].n}</strong><br>${esc(e.activity)}</div>`).join("")||'<p class="mute">Belum ada riwayat.</p>'}
-<h3 class="sec" style="margin-top:1.4rem">Refleksiku</h3>${S.refl.map(r=>`<div class="card" style="margin-bottom:.7rem"><strong>${dLabel(r.entry_date)}</strong><p style="margin:.3rem 0">${esc(r.aktivitas)}</p><p style="margin:.3rem 0">${esc(r.pengalaman)}</p><p class="mute" style="margin:0">Besok: ${esc(r.perbaikan)}</p>${r.umpan_balik?`<p style="margin:.5rem 0 0;color:var(--ok);font-weight:700">Umpan balik guru: ${esc(r.umpan_balik)}</p>`:'<p class="mute" style="margin:.5rem 0 0">Menunggu umpan balik guru.</p>'}</div>`).join("")||'<p class="mute">Belum ada refleksi.</p>'}${fab("fr","bk","Kembali",ic.back)}`}
+<h3 class="sec" style="margin-top:1.4rem">Refleksiku</h3>${S.refl.map(r=>`<div class="card" style="margin-bottom:.7rem"><strong>${dLabel(r.entry_date)}</strong><p style="margin:.3rem 0">${esc(r.aktivitas)}</p><p style="margin:.3rem 0">${esc(r.pengalaman)}</p><p class="mute" style="margin:0">Besok: ${esc(r.perbaikan)}</p>${r.umpan_balik?`<p style="margin:.5rem 0 0;color:var(--ok);font-weight:700">Umpan balik guru: ${esc(r.umpan_balik)}</p>`:'<p class="mute" style="margin:.5rem 0 0">Menunggu umpan balik guru.</p>'}<label style="display:flex;gap:.5rem;align-items:center;margin:.6rem 0 0;font-weight:600;min-height:44px"><input type="checkbox" data-rp="${r.id}" ${r.dipilih_untuk_laporan?"checked":""} style="width:20px;height:20px;accent-color:#6b4fd6"> Tampilkan di laporan bulanan</label></div>`).join("")||'<p class="mute">Belum ada refleksi.</p>'}`}
 function renderS(){const go=v=>{S.v=v;S.pop=null;renderS();scrollTo(0,0)};$("#root").innerHTML=`<div class="wrap">${({home:homeS,prog:progS,detail:detailS})[S.v]()}</div>`;wireTop();
 const g=(s,f)=>{const e=$(s);if(e)e.onclick=f};g("#gp",()=>go("prog"));g("#bk",()=>go("home"));g("#gr",()=>{$("#re").textContent="";$("#dgr").showModal()});
 document.querySelectorAll("[data-h]").forEach(b=>b.onclick=()=>{S.hid=+b.dataset.h;go("detail")});
 document.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;renderS()});
+document.querySelectorAll("[data-rp]").forEach(c=>c.onchange=async()=>{const {error}=await sb.from("reflections").update({dipilih_untuk_laporan:c.checked}).eq("id",c.dataset.rp);if(error){c.checked=!c.checked;toast("Gagal menyimpan. Coba lagi.");return}const r=S.refl.find(x=>x.id===c.dataset.rp);if(r)r.dipilih_untuk_laporan=c.checked;toast(c.checked?"Akan tampil di laporan bulanan.":"Tidak ditampilkan di laporan.")});
 document.querySelectorAll("[data-s]").forEach(b=>b.onclick=async()=>{const i=+b.dataset.s,d=emap()[i];b.disabled=true;
 if(d&&d.status==="dicatat"){const {error}=await sb.from("habit_entries").delete().eq("student_id",S.student.id).eq("entry_date",T()).eq("habit",i+1);if(error){b.disabled=false;toast("Gagal membatalkan. Coba lagi.");return}setLocal(i,null);S.pop=null;renderS();toast("Catatan dibatalkan.")}
 else if(await upsertEntry(i,{})){S.pop=i;renderS();toast("Tercatat. Kerja bagus!")}else b.disabled=false});
 const sk=$("#sk");if(sk)sk.onclick=async()=>{if(await upsertEntry(S.hid,{status:"dilewati"})){go("home");toast("Tidak apa-apa, boleh dilewati.")}};
-const fj=$("#fj");if(fj)fj.onsubmit=async e=>{e.preventDefault();const a=fj.querySelector("[name=a]:checked");if(!a){$("#je").textContent="Pilih satu aktivitas dulu.";return}
-const i=S.hid;$("#jb").disabled=true;if(await upsertEntry(i,{activity:a.value,note:$("#nt").value.trim()||null})){S.pop=i;go("home");toast("Tersimpan. Kamu melatih: "+H[i].m.join(", "))}else $("#jb").disabled=false}}
+const fj=$("#fj");if(fj)fj.onsubmit=async e=>{e.preventDefault();const as=[...fj.querySelectorAll("[name=a]:checked")].map(x=>x.value);if(!as.length){$("#je").textContent="Pilih minimal satu aktivitas (boleh lebih dari satu).";return}
+const i=S.hid;$("#jb").disabled=true;if(await upsertEntry(i,{activity:as.join("; "),note:$("#nt").value.trim()||null})){S.pop=i;go("home");toast("Tersimpan. Kamu melatih: "+H[i].m.join(", "))}else $("#jb").disabled=false}}
 
 /* ---------- GURU ---------- */
+const BLN=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const bulanLabel=p=>{const [y,m]=p.split("-");return BLN[+m-1]+" "+y};
+const LVN=["Kurang","Cukup","Baik","Sangat Baik"];
+const DN=["Keimanan dan ketakwaan","Kewargaan","Penalaran kritis","Kreativitas","Kolaborasi","Kemandirian","Kesehatan","Komunikasi"];
+const FOKUS=[3,8];
+const dcol=d=>({3:["#6b4fd6","#F0EAFE"],8:["#C2453A","#FFE9E6"]}[d]||["#1F6F5C","#E1F4EC"]);
 const nameOf=id=>{const s=S.studs.find(x=>x.id===id);return s?titleCase(s.nama):"-"};
 const sumOf=id=>S.sum.find(x=>x.student_id===id)||{hari_mencatat:0,mencatat_hari_ini:false,terakhir_mencatat:null};
+const periods=()=>{const o=[];let [y,m]=T().slice(0,7).split("-").map(Number);for(let i=0;i<6;i++){o.push(y+"-"+String(m).padStart(2,"0"));m--;if(m===0){m=12;y--}}return o};
+const dimOf=(sid,d)=>{const a=S.ass.find(x=>x.student_id===sid&&x.dimensi===d);return a?a.level:0};
+const noteOf=sid=>{const n=S.notes.find(x=>x.student_id===sid);return n?n.catatan||"":""};
+const hariHab=(sid,h)=>{const x=S.kb.find(r=>r.student_id===sid&&r.habit===h);return x?x.hari:0};
+const hariMgg=(sid,k)=>{const x=S.mg.find(r=>r.student_id===sid&&r.minggu===k);return x?x.hari:0};
+const daysIn=p=>{const [y,m]=p.split("-").map(Number);return new Date(Date.UTC(y,m,0)).getUTCDate()};
+const lvWord=l=>["masih perlu bimbingan","cukup","baik","sangat baik"][l-1];
+function draf(s,lv){const nm=titleCase(s.nama).split(" ")[0],ls=FOKUS.map(d=>lv[d]).filter(Boolean),avg=ls.length?Math.round(ls.reduce((a,b)=>a+b,0)/ls.length):0;
+let t=`Pada bulan ${bulanLabel(S.periode)}, ananda ${nm} menunjukkan capaian${avg?" yang "+lvWord(avg):""} dalam penguatan profil lulusan melalui kegiatan kokurikuler 7 Kebiasaan Anak Indonesia Hebat.`;
+FOKUS.forEach(d=>{if(lv[d])t+=` Pada dimensi ${DN[d-1].toLowerCase()}, ananda ${lvWord(lv[d])}.`});return t}
+async function loadLap(){S.lap=false;renderG();const p=S.periode,[y,m]=p.split("-").map(Number),nx=m===12?(y+1)+"-01-01":y+"-"+String(m+1).padStart(2,"0")+"-01";
+const [as,nt,kb,mg,mr]=await Promise.all([sb.from("assessments").select("student_id,dimensi,level").eq("periode",p).limit(1000),sb.from("report_notes").select("student_id,catatan").eq("periode",p).limit(1000),sb.rpc("kebiasaan_bulanan",{p_periode:p}),sb.rpc("mingguan_bulanan",{p_periode:p}),sb.from("reflections").select("id,student_id,entry_date,aktivitas,pengalaman,perbaikan,dipilih_untuk_laporan").gte("entry_date",p+"-01").lt("entry_date",nx).limit(1000)]);
+S.ass=as.data||[];S.notes=nt.data||[];S.kb=kb.data||[];S.mg=mg.data||[];S.mref=mr.data||[];S.lap=true;renderG()}
 function sumG(){const n=S.studs.length,hi=S.sum.filter(x=>x.mencatat_hari_ini).length,pend=S.grefl.filter(r=>!r.umpan_balik).length,cut=addDays(T(),-3);
 const quiet=S.studs.filter(s=>{const x=sumOf(s.id);return !x.terakhir_mencatat||x.terakhir_mencatat<cut});
 return `${topbar()}<p class="date">Kelas ${S.cls?`${S.cls.tingkat}${S.cls.nama}`:"-"} · ${esc(S.profile.nama)}</p><h2 class="hello" style="font-size:1.7rem">Ringkasan kelas</h2>
 <div class="card sum"><strong>${hi} dari ${n} siswa sudah mencatat hari ini</strong><div class="bar"><i style="width:${n?hi/n*100:0}%"></i></div><p class="mute" style="margin:.5rem 0 0">Ringkasan ini untuk pendampingan, bukan untuk membandingkan siswa.</p></div>
-<h3 class="sec">Refleksi menunggu umpan balik (${pend})</h3>${S.grefl.filter(r=>!r.umpan_balik).slice(0,5).map(r=>`<div class="srow"><span class="av" aria-hidden="true">${esc(nameOf(r.student_id)[0])}</span><span><strong>${esc(nameOf(r.student_id))}</strong><br><span class="mute">${dLabel(r.entry_date)}</span></span></div>`).join("")||'<p class="mute">Tidak ada. Semua sudah dibalas.</p>'}
-${pend?'<button class="btn sec" id="gor">Buka semua refleksi</button>':""}
-<h3 class="sec" style="margin-top:1.4rem">Perlu disapa (${quiet.length})</h3><p class="mute" style="margin-top:-.4rem">Belum mencatat 3 hari terakhir. Mulai dengan bertanya kabar, bukan menegur.</p>${quiet.map(s=>`<div class="srow"><span class="av" aria-hidden="true">${esc(titleCase(s.nama)[0])}</span><span><strong>${esc(titleCase(s.nama))}</strong><br><span class="mute">${sumOf(s.id).terakhir_mencatat?"Terakhir mencatat "+dLabel(sumOf(s.id).terakhir_mencatat):"Belum pernah mencatat"}</span></span></div>`).join("")||'<p class="mute">Semua siswa aktif mencatat.</p>'}`}
-function listG(){return `${topbar()}<h2 class="hello" style="font-size:1.7rem;margin-top:1.4rem">Daftar siswa</h2><p class="mute">Urut abjad, ${S.studs.length} siswa.</p>${S.studs.map(s=>{const x=sumOf(s.id),p=S.grefl.filter(r=>r.student_id===s.id&&!r.umpan_balik).length;return `<div class="srow"><span class="av" aria-hidden="true">${esc(titleCase(s.nama)[0])}</span><span><strong>${esc(titleCase(s.nama))}</strong><br><span class="tag">${x.hari_mencatat}/7 hari mencatat</span>${x.mencatat_hari_ini?'<span class="tag">✓ Hari ini</span>':""}${p?`<span class="tag w">${p} refleksi menunggu</span>`:""}</span></div>`}).join("")}`}
-function reflG(){return `${topbar()}<h2 class="hello" style="font-size:1.7rem;margin-top:1.4rem">Refleksi siswa</h2>${S.grefl.map(r=>`<div class="card" style="margin-bottom:.7rem"><strong>${esc(nameOf(r.student_id))}</strong> <span class="mute">· ${dLabel(r.entry_date)}</span><p style="margin:.4rem 0 .2rem"><b>Aktivitas:</b> ${esc(r.aktivitas)}</p><p style="margin:.2rem 0"><b>Pengalaman:</b> ${esc(r.pengalaman)}</p><p style="margin:.2rem 0"><b>Besok:</b> ${esc(r.perbaikan)}</p>${r.umpan_balik?`<p style="color:var(--ok);font-weight:700;margin:.5rem 0 0">Umpan balik: ${esc(r.umpan_balik)}</p>`:`<label for="f${r.id}">Umpan balik</label><input type="text" id="f${r.id}" maxlength="300"><div class="err" id="e${r.id}" role="alert"></div><button class="btn" data-fb="${r.id}" style="margin-top:.6rem">Kirim umpan balik</button>`}</div>`).join("")||'<p class="mute">Belum ada refleksi dari siswa.</p>'}`}
-function renderG(){$("#root").innerHTML=`<div class="wrap">${({sum:sumG,list:listG,refl:reflG})[S.gv]()}</div><nav class="tabs" aria-label="Menu guru">${[["sum","Ringkasan"],["list","Siswa"],["refl","Refleksi"]].map(([k,l])=>`<button data-g="${k}" ${k===S.gv?'aria-current="page"':""}>${l}</button>`).join("")}</nav>`;wireTop();
-document.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>{S.gv=b.dataset.g;renderG();scrollTo(0,0)});
+<div class="g2"><div><h3 class="sec">Refleksi menunggu umpan balik (${pend})</h3>${S.grefl.filter(r=>!r.umpan_balik).slice(0,5).map(r=>`<div class="srow"><span class="av" aria-hidden="true">${esc(nameOf(r.student_id)[0])}</span><span><strong>${esc(nameOf(r.student_id))}</strong><br><span class="mute">${dLabel(r.entry_date)}</span></span></div>`).join("")||'<p class="mute">Tidak ada. Semua sudah dibalas.</p>'}
+${pend?'<button class="btn sec" id="gor">Buka semua refleksi</button>':""}</div>
+<div><h3 class="sec">Perlu disapa (${quiet.length})</h3><p class="mute" style="margin-top:-.4rem">Belum mencatat 3 hari terakhir. Mulai dengan bertanya kabar, bukan menegur.</p>${quiet.slice(0,12).map(s=>`<div class="srow"><span class="av" aria-hidden="true">${esc(titleCase(s.nama)[0])}</span><span><strong>${esc(titleCase(s.nama))}</strong><br><span class="mute">${sumOf(s.id).terakhir_mencatat?"Terakhir mencatat "+dLabel(sumOf(s.id).terakhir_mencatat):"Belum pernah mencatat"}</span></span></div>`).join("")||'<p class="mute">Semua siswa aktif mencatat.</p>'}${quiet.length>12?`<p class="mute">dan ${quiet.length-12} siswa lainnya. Lihat di tab Siswa.</p>`:""}</div></div>`}
+function listG(){return `${topbar()}<h2 class="hello" style="font-size:1.7rem;margin-top:1.4rem">Daftar siswa</h2><p class="mute">Urut abjad, ${S.studs.length} siswa.</p><div class="slist">${S.studs.map(s=>{const x=sumOf(s.id),p=S.grefl.filter(r=>r.student_id===s.id&&!r.umpan_balik).length;return `<div class="srow"><span class="av" aria-hidden="true">${esc(titleCase(s.nama)[0])}</span><span><strong>${esc(titleCase(s.nama))}</strong><br><span class="tag">${x.hari_mencatat}/7 hari mencatat</span>${x.mencatat_hari_ini?'<span class="tag">✓ Hari ini</span>':""}${p?`<span class="tag w">${p} refleksi menunggu</span>`:""}</span></div>`}).join("")}</div>`}
+function reflG(){return `${topbar()}<h2 class="hello" style="font-size:1.7rem;margin-top:1.4rem">Refleksi siswa</h2><div class="slist">${S.grefl.map(r=>`<div class="card" style="margin-bottom:.7rem"><strong>${esc(nameOf(r.student_id))}</strong> <span class="mute">· ${dLabel(r.entry_date)}</span><p style="margin:.4rem 0 .2rem"><b>Aktivitas:</b> ${esc(r.aktivitas)}</p><p style="margin:.2rem 0"><b>Pengalaman:</b> ${esc(r.pengalaman)}</p><p style="margin:.2rem 0"><b>Besok:</b> ${esc(r.perbaikan)}</p>${r.umpan_balik?`<p style="color:var(--ok);font-weight:700;margin:.5rem 0 0">Umpan balik: ${esc(r.umpan_balik)}</p>`:`<label for="f${r.id}">Umpan balik</label><input type="text" id="f${r.id}" maxlength="300"><div class="err" id="e${r.id}" role="alert"></div><button class="btn" data-fb="${r.id}" style="margin-top:.6rem">Kirim umpan balik</button>`}</div>`).join("")||'<p class="mute">Belum ada refleksi dari siswa.</p>'}</div>`}
+function lapG(){if(!S.lap)return `${topbar()}<p class="mute" style="margin-top:2rem">Memuat data laporan...</p>`;
+return `${topbar()}<h2 class="hello" style="font-size:1.7rem;margin-top:1.4rem">Laporan bulanan</h2>
+<div class="card" style="display:flex;gap:.8rem;flex-wrap:wrap;align-items:end"><div style="flex:1;min-width:180px"><label for="per" style="margin-top:0">Bulan</label><select id="per">${periods().map(p=>`<option value="${p}" ${p===S.periode?"selected":""}>${bulanLabel(p)}</option>`).join("")}</select></div><button class="btn" id="pall">Cetak semua laporan</button></div>
+<p class="mute">Dimensi yang dinilai: ${FOKUS.map(d=>DN[d-1]).join(" dan ")}. Isi penilaian tiap siswa, lalu cetak atau simpan sebagai PDF.</p>
+<div class="slist">${S.studs.map(s=>{const n=FOKUS.filter(d=>dimOf(s.id,d)).length,tot=[1,2,3,4].reduce((a,k)=>a+hariMgg(s.id,k),0);return `<div class="srow"><span class="av" aria-hidden="true">${esc(titleCase(s.nama)[0])}</span><span style="flex:1;min-width:150px"><strong>${esc(titleCase(s.nama))}</strong><br><span class="tag ${n<FOKUS.length?"w":""}">${n===FOKUS.length?"Sudah dinilai":"Dinilai "+n+"/"+FOKUS.length}</span>${noteOf(s.id)?'<span class="tag">Ada catatan</span>':""}<span class="tag">${tot} hari mencatat</span></span><button class="btn sec sm" data-ln="${s.id}">Nilai</button><button class="btn sec sm" data-lp="${s.id}">Cetak</button></div>`}).join("")}</div>`}
+function lapdG(){const s=S.studs.find(x=>x.id===S.lsid);if(!s)return "";const tot=[1,2,3,4].reduce((a,k)=>a+hariMgg(s.id,k),0),rs=S.mref.filter(r=>r.student_id===s.id).sort((a,b)=>b.entry_date.localeCompare(a.entry_date)).slice(0,3);
+return `${topbar()}<button class="btn sec sm" id="lb2" style="margin-top:1rem">← Daftar laporan</button><h2 class="hello" style="font-size:1.7rem;margin-top:.8rem">${esc(titleCase(s.nama))}</h2><p class="mute">${bulanLabel(S.periode)} · mencatat ${tot} hari dari ${daysIn(S.periode)} hari</p>
+<div class="g2"><div class="card"><h3 class="sec">Penilaian dimensi</h3><p class="mute" style="margin-top:-.3rem">Skala rubrik: Kurang, Cukup, Baik, Sangat Baik. Nilai dari refleksi, observasi, dan bukti kegiatan, bukan dari jurnal saja.</p>${FOKUS.map(d=>`<label for="lv${d}">${DN[d-1]}</label><select id="lv${d}"><option value="0">Belum dinilai</option>${LVN.map((l,i)=>`<option value="${i+1}" ${dimOf(s.id,d)===i+1?"selected":""}>${l}</option>`).join("")}</select>`).join("")}
+<label for="cn">Catatan wali kelas (draf deskripsi rapor)</label><textarea id="cn" rows="6" maxlength="600">${esc(noteOf(s.id))}</textarea><div class="mute" style="font-size:.8rem"><span id="cc">0</span>/600</div>
+<div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem"><button class="btn sec" id="dr">Isi draf otomatis</button><button class="btn" id="sv">Simpan</button><button class="btn sec" id="pv">Simpan dan lihat laporan</button></div><div class="err" id="le2" role="alert"></div></div>
+<div class="card"><h3 class="sec">Bahan penilaian</h3><p class="mute" style="margin-top:-.3rem">Refleksi siswa bulan ini:</p>${rs.map(r=>`<div class="hi"><strong>${dLabel(r.entry_date)}</strong><br>${esc(r.pengalaman)}<br><span class="mute">Besok: ${esc(r.perbaikan)}</span></div>`).join("")||'<p class="mute">Belum ada refleksi bulan ini.</p>'}</div></div>`}
+const rbars=(v,l,mx)=>{const w=300/v.length;return `<svg viewBox="0 0 320 120" role="img" aria-label="Hari mencatat per minggu: ${l.map((x,i)=>x+" "+v[i]).join(", ")}" style="width:100%;height:auto">${[0,1,2].map(k=>`<line x1="10" x2="310" y1="${24+k*32}" y2="${24+k*32}" stroke="#E6E0F5"/>`).join("")}${v.map((n,i)=>{const h=n/mx*72,x=14+i*w+w*.2;return `<rect x="${x}" y="${96-h}" width="${w*.6}" height="${Math.max(h,2)}" rx="6" fill="#A78BFA" stroke="#6b4fd6" stroke-width="1.2"/><text x="${x+w*.3}" y="${90-h}" text-anchor="middle" font-size="12" font-weight="700" fill="#303344">${n}</text><text x="${x+w*.3}" y="112" text-anchor="middle" font-size="11" fill="#5f6174">${l[i]}</text>`}).join("")}</svg>`};
+function reportHTML(s){const p=S.periode,y=p.split("-")[0],days=daysIn(p),kelas=S.cls?`${S.cls.tingkat}${S.cls.nama}`:"-";
+const cards=FOKUS.map(d=>{const l=dimOf(s.id,d),[c,bg]=dcol(d);return `<div class="rcard" style="background:${bg}"><div style="color:${c};font-weight:800;font-size:.85rem">${DN[d-1]}</div><div class="rlv">${l?LVN[l-1]:"Belum dinilai"}</div><div class="rseg">${[1,2,3,4].map(i=>`<i style="background:${i<=l?c:"#fff"}"></i>`).join("")}</div></div>`}).join("");
+const wk=[1,2,3,4].map(k=>hariMgg(s.id,k)),habs=H.map((h,i)=>{const v=hariHab(s.id,i+1);return `<div class="rhab"><span>${h.n}</span><div class="rb"><i style="width:${Math.min(100,Math.round(v/days*100))}%;background:${h.f}"></i></div><b>${v} hari</b></div>`}).join("");
+const rs=S.mref.filter(r=>r.student_id===s.id).sort((a,b)=>b.entry_date.localeCompare(a.entry_date)),pick=rs.find(r=>r.dipilih_untuk_laporan)||rs[0],note=noteOf(s.id);
+return `<section class="rp"><div class="rhd"><img src="${EMB}" alt="" width="46" height="46"><div class="rwm">SIKAP<span>36</span></div><div class="rtag">SMP Negeri 36 Bandung</div></div>
+<h1 class="rt">Laporan Perkembangan Karakter</h1><p class="rs">${FOKUS.map(d=>DN[d-1]).join(" dan ")} · ${bulanLabel(p)}</p>
+<div class="rid"><div><small>Nama siswa</small><b>${esc(titleCase(s.nama))}</b></div><div><small>Kelas</small><b>${kelas}</b></div><div><small>Wali kelas</small><b>${esc(S.profile.nama)}</b></div></div>
+<div class="rcards">${cards}</div>
+<div class="rcols"><div><h3 class="rh">Hari mencatat per minggu</h3>${rbars(wk,["Mgg 1","Mgg 2","Mgg 3","Mgg 4"],Math.max(7,...wk))}</div><div><h3 class="rh">Hari mencatat tujuh kebiasaan (dari ${days} hari)</h3>${habs}</div></div>
+<p class="rn">Skala rubrik mengikuti contoh Panduan Kokurikuler BSKAP 2025: Kurang, Cukup, Baik, Sangat Baik. Level ditetapkan wali kelas dari refleksi, observasi, dan bukti kegiatan. Hanya jumlah hari yang ditampilkan, isi jurnal pribadi tidak dicantumkan.</p>
+<div class="rcols"><div><h3 class="rh" style="color:#6b4fd6">Refleksi pilihan siswa</h3><p class="rq">${pick?`“${esc(pick.pengalaman)}” Rencana: ${esc(pick.perbaikan)}`:"Belum ada refleksi bulan ini."}</p></div><div><h3 class="rh" style="color:#C2453A">Catatan wali kelas</h3><p class="rq" style="font-style:normal">${note?esc(note):"Belum ada catatan."}</p></div></div>
+<div class="rdate">Bandung, ........................ ${y}</div>
+<div class="rsig"><div><p>Orang tua/wali siswa</p><div class="rline"></div><small>Nama terang</small></div><div><p>Wali kelas</p><div class="rline"></div><b>${esc(S.profile.nama)}</b><small>${S.profile.nip?"NIP. "+esc(S.profile.nip):"Nama dan NIP"}</small></div></div>
+<div class="rft">SIKAP 36 · Mengacu Panduan Kokurikuler BSKAP 2025. Memuat data pribadi siswa, mohon dijaga kerahasiaannya.</div></section>`}
+function printG(){return `<div class="noprint"><div class="top"><button class="btn sec" id="pk">← Kembali</button><button class="btn" id="pb">Cetak / Simpan PDF</button></div><p class="mute">Pratinjau laporan. Di jendela cetak pilih ukuran A4 dan nyalakan "Grafik latar" agar warna ikut tercetak. Untuk PDF, pilih tujuan "Simpan sebagai PDF".</p></div>${S.psids.map(id=>reportHTML(S.studs.find(x=>x.id===id))).join("")}`}
+function openPrint(ids){S.psids=ids;S.gv="print";S.title0=S.title0||document.title;const k=S.cls?`${S.cls.tingkat}${S.cls.nama}`:"";document.title=ids.length===1?`Laporan SIKAP 36 - ${nameOf(ids[0])} - ${bulanLabel(S.periode)}`:`Laporan SIKAP 36 kelas ${k} - ${bulanLabel(S.periode)}`;renderG();scrollTo(0,0)}
+async function saveLap(){const sid=S.lsid,er=$("#le2");er.textContent="";let bad=false;const now=new Date().toISOString();
+for(const d of FOKUS){const v=+$("#lv"+d).value;
+if(v){const {error}=await sb.from("assessments").upsert({student_id:sid,periode:S.periode,dimensi:d,level:v,assessed_by:S.uid,updated_at:now},{onConflict:"student_id,periode,dimensi"});if(error)bad=true;else{S.ass=S.ass.filter(x=>!(x.student_id===sid&&x.dimensi===d));S.ass.push({student_id:sid,dimensi:d,level:v})}}
+else{const {error}=await sb.from("assessments").delete().eq("student_id",sid).eq("periode",S.periode).eq("dimensi",d);if(error)bad=true;else S.ass=S.ass.filter(x=>!(x.student_id===sid&&x.dimensi===d))}}
+const t=$("#cn").value.trim();
+if(t){const {error}=await sb.from("report_notes").upsert({student_id:sid,periode:S.periode,catatan:t,updated_by:S.uid,updated_at:now},{onConflict:"student_id,periode"});if(error)bad=true;else{S.notes=S.notes.filter(x=>x.student_id!==sid);S.notes.push({student_id:sid,catatan:t})}}
+else{const {error}=await sb.from("report_notes").delete().eq("student_id",sid).eq("periode",S.periode);if(error)bad=true;else S.notes=S.notes.filter(x=>x.student_id!==sid)}
+if(bad){er.textContent="Sebagian data gagal tersimpan. Coba lagi.";return false}toast("Penilaian tersimpan.");return true}
+function renderG(){const act=({lapd:"lap",print:"lap"})[S.gv]||S.gv;
+$("#root").innerHTML=`<div class="wrap wide">${({sum:sumG,list:listG,refl:reflG,lap:lapG,lapd:lapdG,print:printG})[S.gv]()}</div><nav class="tabs" aria-label="Menu guru">${[["sum","Ringkasan"],["list","Siswa"],["refl","Refleksi"],["lap","Laporan"]].map(([k,l])=>`<button data-g="${k}" ${k===act?'aria-current="page"':""}>${l}</button>`).join("")}</nav>`;wireTop();
+document.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>{if(S.title0){document.title=S.title0}S.gv=b.dataset.g;if(S.gv==="lap")loadLap();else{renderG();scrollTo(0,0)}});
 const o=$("#gor");if(o)o.onclick=()=>{S.gv="refl";renderG();scrollTo(0,0)};
 document.querySelectorAll("[data-fb]").forEach(b=>b.onclick=async()=>{const id=b.dataset.fb,v=$("#f"+id).value.trim();if(!v){$("#e"+id).textContent="Tulis umpan balik dulu.";return}
 b.disabled=true;const {error}=await sb.from("reflections").update({umpan_balik:v}).eq("id",id);if(error){b.disabled=false;toast("Gagal mengirim. Coba lagi.");return}
-S.grefl.find(r=>r.id===id).umpan_balik=v;renderG();toast("Umpan balik terkirim.")})}
+S.grefl.find(r=>r.id===id).umpan_balik=v;renderG();toast("Umpan balik terkirim.")});
+const per=$("#per");if(per)per.onchange=()=>{S.periode=per.value;loadLap()};
+const pa=$("#pall");if(pa)pa.onclick=()=>openPrint(S.studs.map(s=>s.id));
+document.querySelectorAll("[data-ln]").forEach(b=>b.onclick=()=>{S.lsid=b.dataset.ln;S.gv="lapd";renderG();scrollTo(0,0)});
+document.querySelectorAll("[data-lp]").forEach(b=>b.onclick=()=>openPrint([b.dataset.lp]));
+const lb2=$("#lb2");if(lb2)lb2.onclick=()=>{S.gv="lap";renderG();scrollTo(0,0)};
+if(S.gv==="lapd"){const cn=$("#cn"),cc=$("#cc"),upd=()=>cc.textContent=cn.value.length;upd();cn.oninput=upd;
+$("#dr").onclick=()=>{const s=S.studs.find(x=>x.id===S.lsid),lv={};FOKUS.forEach(d=>lv[d]=+$("#lv"+d).value);cn.value=draf(s,lv);upd()};
+$("#sv").onclick=async()=>{$("#sv").disabled=true;await saveLap();$("#sv").disabled=false};
+$("#pv").onclick=async()=>{if(await saveLap())openPrint([S.lsid])}}
+const pb=$("#pb");if(pb)pb.onclick=()=>window.print();
+const pk=$("#pk");if(pk)pk.onclick=()=>{if(S.title0)document.title=S.title0;S.gv="lap";renderG();scrollTo(0,0)}}
 
 /* ---------- BOOT ---------- */
 async function boot(expect){const {data:{user}}=await sb.auth.getUser();if(!user)return false;
-const {data:p,error}=await sb.from("profiles").select("role,nama").eq("id",user.id).maybeSingle();if(error||!p)return false;if(expect&&p.role!==expect)return false;S.profile=p;
+const {data:p,error}=await sb.from("profiles").select("role,nama,nip").eq("id",user.id).maybeSingle();if(error||!p)return false;if(expect&&p.role!==expect)return false;S.profile=p;S.uid=user.id;S.periode=T().slice(0,7);
 if(p.role==="siswa"){const {data:s}=await sb.from("students").select("id,nama").maybeSingle();if(!s)return false;S.student=s;
-const [en,rf]=await Promise.all([sb.from("habit_entries").select("entry_date,habit,status,activity,note").gte("entry_date",addDays(T(),-29)).limit(1000),sb.from("reflections").select("id,entry_date,aktivitas,pengalaman,perbaikan,umpan_balik").order("created_at",{ascending:false}).limit(20)]);
+const [en,rf]=await Promise.all([sb.from("habit_entries").select("entry_date,habit,status,activity,note").gte("entry_date",addDays(T(),-29)).limit(1000),sb.from("reflections").select("id,entry_date,aktivitas,pengalaman,perbaikan,umpan_balik,dipilih_untuk_laporan").order("created_at",{ascending:false}).limit(20)]);
 S.entries=en.data||[];S.refl=rf.data||[];S.v="home";renderS();return true}
 if(p.role==="wali_kelas"){const {data:ct}=await sb.from("class_teachers").select("class_id,classes(tingkat,nama)").limit(1);S.cls=ct&&ct[0]?ct[0].classes:null;
 const cid=ct&&ct[0]?ct[0].class_id:null;const [ss,sm,rf]=await Promise.all([sb.from("students").select("id,nama").eq("class_id",cid).order("nama"),sb.rpc("ringkasan_kelas"),sb.from("reflections").select("id,student_id,entry_date,aktivitas,pengalaman,perbaikan,umpan_balik").order("created_at",{ascending:false}).limit(100)]);
-S.studs=ss.data||[];S.sum=sm.data||[];S.grefl=rf.data||[];S.gv="sum";renderG();return true}
+S.studs=ss.data||[];S.sum=sm.data||[];S.grefl=rf.data||[];S.ass=[];S.notes=[];S.kb=[];S.mg=[];S.mref=[];S.gv="sum";renderG();return true}
 return false}
 $("#cx").onclick=()=>$("#dgr").close();$("#px").onclick=()=>$("#dgp").close();
 $("#fr").onsubmit=async e=>{e.preventDefault();const a=$("#r1").value.trim(),x=$("#r2").value.trim(),b=$("#r3").value.trim();
 if(!a||!x||!b){$("#re").textContent="Isi ketiga pertanyaan agar refleksimu lengkap.";return}
-$("#rs").disabled=true;const {data,error}=await sb.from("reflections").insert({student_id:S.student.id,aktivitas:a,pengalaman:x,perbaikan:b}).select("id,entry_date,aktivitas,pengalaman,perbaikan,umpan_balik").single();$("#rs").disabled=false;
+$("#rs").disabled=true;const {data,error}=await sb.from("reflections").insert({student_id:S.student.id,aktivitas:a,pengalaman:x,perbaikan:b}).select("id,entry_date,aktivitas,pengalaman,perbaikan,umpan_balik,dipilih_untuk_laporan").single();$("#rs").disabled=false;
 if(error){$("#re").textContent="Gagal menyimpan. Coba lagi.";return}S.refl.unshift(data);$("#fr").reset();$("#dgr").close();toast("Refleksi tersimpan.");if(S.v==="prog")renderS()};
 $("#fp").onsubmit=async e=>{e.preventDefault();const a=$("#p1").value,b=$("#p2").value,er=$("#pe");
 if(a.length<8){er.textContent="Minimal 8 karakter.";return}if(a!==b){er.textContent="Kedua kata sandi tidak sama.";return}
