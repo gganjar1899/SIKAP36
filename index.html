@@ -166,8 +166,8 @@ if(!ok){er.textContent=sis?"NISN harus 10 angka.":"NIP harus berupa angka.";retu
 if(!pw){er.textContent="Isi kata sandi.";return}
 bt.disabled=true;bt.textContent="Memeriksa...";
 const {error}=await sb.auth.signInWithPassword({email:`${id}@${sis?"siswa":"guru"}.hebat7.invalid`,password:pw});
-if(error){bt.disabled=false;bt.textContent="Masuk";er.textContent=/rate|too many/i.test(error.message)?"Terlalu banyak percobaan. Tunggu beberapa menit lalu coba lagi.":(sis?"NISN atau kata sandi salah.":"NIP atau kata sandi salah.");return}
-const ok2=await boot(sis?"siswa":"wali_kelas");if(!ok2){await sb.auth.signOut();bt.disabled=false;bt.textContent="Masuk";er.textContent=sis?"Akun ini bukan akun siswa.":"Akun ini bukan akun wali kelas.";return}}}
+if(error){bt.disabled=false;bt.textContent="Masuk";er.textContent=isNet(error)?"Tidak bisa terhubung ke server. Periksa internet lalu coba lagi.":/rate|too many/i.test(error.message)?"Terlalu banyak percobaan. Tunggu beberapa menit lalu coba lagi.":(sis?"NISN atau kata sandi salah.":"NIP atau kata sandi salah.");return}
+let ok2;try{ok2=await boot(sis?"siswa":"wali_kelas")}catch(x){bt.disabled=false;bt.textContent="Masuk";er.textContent="Gagal memuat data. Periksa internet lalu coba lagi.";return}if(!ok2){await sb.auth.signOut();bt.disabled=false;bt.textContent="Masuk";er.textContent=sis?"Akun ini bukan akun siswa.":"Akun ini bukan akun wali kelas.";return}}}
 
 /* ---------- SISWA ---------- */
 const emap=()=>{const m={};S.entries.filter(e=>e.entry_date===T()).forEach(e=>m[e.habit-1]=e);return m};
@@ -177,7 +177,7 @@ function setLocal(i,row){S.entries=S.entries.filter(e=>!(e.entry_date===T()&&e.h
 async function upsertEntry(i,fields){const row={student_id:S.student.id,entry_date:T(),habit:i+1,status:"dicatat",activity:null,note:null,...fields};
 const {error}=await sb.from("habit_entries").upsert(row,{onConflict:"student_id,entry_date,habit"});if(error){toast("Gagal menyimpan. Coba lagi.");return false}setLocal(i,row);return true}
 function homeS(){const m=emap(),n=cnt(),tgl=new Date().toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric",timeZone:"Asia/Jakarta"});
-return `${topbar()}<p class="date">${tgl}</p><h2 class="hello">Halo, ${esc(titleCase(S.profile.nama).split(" ")[0])}</h2><p class="mute" style="margin:.25rem 0 0">Kelas 9G · Langkah kecil hari ini tetap berarti.</p>
+return `${topbar()}<p class="date">${tgl}</p><h2 class="hello">Halo, ${esc(titleCase(S.profile.nama).split(" ")[0])}</h2><p class="mute" style="margin:.25rem 0 0">${S.kelas?"Kelas "+esc(S.kelas)+" · ":""}Langkah kecil hari ini tetap berarti.</p>
 <div class="card sum"><strong>${n} dari 7 kebiasaan dicatat hari ini</strong><div class="bar" role="img" aria-label="${n} dari 7"><i style="width:${n/7*100}%"></i></div><p class="mute" style="margin:.5rem 0 0">Geser tombol saat sudah dilakukan. Ketuk nama untuk menulis cerita atau melewati.</p></div>
 <h3 class="sec">Kebiasaanku</h3>${H.map((h,i)=>{const d=m[i],ok=d&&d.status==="dicatat";return `<div class="row ${S.pop===i?"pop":""}" style="--f:${h.f}"><span class="ic" aria-hidden="true">${h.e}</span><button class="nm" data-h="${i}" aria-label="Buka jurnal ${h.n}"><b>${h.n}</b><small class="${ok?"d":""}">${st(d)}</small></button><button class="sw" role="switch" aria-checked="${!!ok}" data-s="${i}" aria-label="Tandai ${h.n} hari ini"><i></i></button></div>`}).join("")}
 ${fab("fl","gp","Lihat progres saya",ic.chart)}${fab("fr","gr","Tulis refleksi hari ini",ic.plus)}`}
@@ -302,14 +302,15 @@ const pb=$("#pb");if(pb)pb.onclick=()=>window.print();
 const pk=$("#pk");if(pk)pk.onclick=()=>{if(S.title0)document.title=S.title0;S.gv="lap";renderG();scrollTo(0,0)}}
 
 /* ---------- BOOT ---------- */
-async function boot(expect){const {data:{user}}=await sb.auth.getUser();if(!user)return false;
-const {data:p,error}=await sb.from("profiles").select("role,nama,nip").eq("id",user.id).maybeSingle();if(error||!p)return false;if(expect&&p.role!==expect)return false;S.profile=p;S.uid=user.id;S.periode=T().slice(0,7);
-if(p.role==="siswa"){const {data:s}=await sb.from("students").select("id,nama").maybeSingle();if(!s)return false;S.student=s;
+const isNet=e=>!!e&&(e.name==="AuthRetryableFetchError"||e.status===0||/failed to fetch|network|load failed/i.test(e.message||""));
+async function boot(expect){const {data:{user},error:ue}=await sb.auth.getUser();if(isNet(ue))throw ue;if(!user)return false;
+const {data:p,error}=await sb.from("profiles").select("role,nama,nip").eq("id",user.id).maybeSingle();if(error)throw error;if(!p)return false;if(expect&&p.role!==expect)return false;S.profile=p;S.uid=user.id;S.periode=T().slice(0,7);
+if(p.role==="siswa"){const {data:s,error:se}=await sb.from("students").select("id,nama,classes(tingkat,nama)").maybeSingle();if(se)throw se;if(!s)return false;S.student=s;{const cl=Array.isArray(s.classes)?s.classes[0]:s.classes;S.kelas=cl?""+cl.tingkat+cl.nama:""}
 const [en,rf]=await Promise.all([sb.from("habit_entries").select("entry_date,habit,status,activity,note").gte("entry_date",addDays(T(),-29)).limit(1000),sb.from("reflections").select("id,entry_date,aktivitas,pengalaman,perbaikan,umpan_balik,dipilih_untuk_laporan").order("created_at",{ascending:false}).limit(20)]);
-S.entries=en.data||[];S.refl=rf.data||[];S.v="home";renderS();return true}
+if(en.error||rf.error)throw (en.error||rf.error);S.entries=en.data||[];S.refl=rf.data||[];S.v="home";renderS();return true}
 if(p.role==="wali_kelas"){const {data:ct}=await sb.from("class_teachers").select("class_id,classes(tingkat,nama)").limit(1);S.cls=ct&&ct[0]?ct[0].classes:null;
-const cid=ct&&ct[0]?ct[0].class_id:null;const [ss,sm,rf]=await Promise.all([sb.from("students").select("id,nama").eq("class_id",cid).order("nama"),sb.rpc("ringkasan_kelas"),sb.from("reflections").select("id,student_id,entry_date,aktivitas,pengalaman,perbaikan,umpan_balik").order("created_at",{ascending:false}).limit(100)]);
-S.studs=ss.data||[];S.sum=sm.data||[];S.grefl=rf.data||[];S.ass=[];S.notes=[];S.kb=[];S.mg=[];S.mref=[];S.gv="sum";renderG();return true}
+const cid=ct&&ct[0]?ct[0].class_id:null;const [ss,sm,rf]=await Promise.all([(cid?sb.from("students").select("id,nama").eq("class_id",cid).order("nama"):Promise.resolve({data:[]})),sb.rpc("ringkasan_kelas"),sb.from("reflections").select("id,student_id,entry_date,aktivitas,pengalaman,perbaikan,umpan_balik").order("created_at",{ascending:false}).limit(100)]);
+if(ss.error||sm.error||rf.error)throw (ss.error||sm.error||rf.error);S.studs=ss.data||[];S.sum=sm.data||[];S.grefl=rf.data||[];S.ass=[];S.notes=[];S.kb=[];S.mg=[];S.mref=[];S.gv="sum";renderG();return true}
 return false}
 $("#cx").onclick=()=>$("#dgr").close();$("#px").onclick=()=>$("#dgp").close();
 $("#fr").onsubmit=async e=>{e.preventDefault();const a=$("#r1").value.trim(),x=$("#r2").value.trim(),b=$("#r3").value.trim();
@@ -320,5 +321,7 @@ $("#fp").onsubmit=async e=>{e.preventDefault();const a=$("#p1").value,b=$("#p2")
 if(a.length<8){er.textContent="Minimal 8 karakter.";return}if(a!==b){er.textContent="Kedua kata sandi tidak sama.";return}
 $("#ps").disabled=true;const {error}=await sb.auth.updateUser({password:a});$("#ps").disabled=false;
 if(error){er.textContent="Gagal mengganti. Coba kata sandi lain.";return}$("#dgp").close();toast("Kata sandi diganti.")};
-(async()=>{const {data:{session}}=await sb.auth.getSession();if(session&&await boot(null))return;loginView()})();
+function netView(){$("#root").innerHTML=`<div class="lg-wrap" style="text-align:center"><h2 style="font-size:1.5rem">Gagal memuat data</h2><p class="mute">Periksa sambungan internet, lalu coba lagi.</p><button class="btn full" id="rty">Coba lagi</button></div>`;$("#rty").onclick=start}
+async function start(){try{const {data:{session}}=await sb.auth.getSession();if(session&&await boot(null))return}catch(e){return netView()}loginView()}
+start();
 </script></body></html>
