@@ -116,12 +116,12 @@ const dLabel=d=>new Date(d+"T00:00:00Z").toLocaleDateString("id-ID",{day:"numeri
 const titleCase=s=>s===s.toUpperCase()?s.toLowerCase().replace(/(^|\s)\S/g,c=>c.toUpperCase()):s;
 function toast(m){const t=$("#toast");t.textContent=m;t.className="on";clearTimeout(toast.k);toast.k=setTimeout(()=>t.className="",2800)}
 const H=[
-{n:"Bangun pagi",e:"🌅",f:"#FFE69A",m:["Kemandirian"],d:"Mulai hari dengan tenang dan tidak terburu-buru.",c:["Bangun pukul 05.00","Merapikan tempat tidur","Menyiapkan perlengkapan sekolah"]},
+{n:"Bangun pagi",e:"🌅",f:"#FFE69A",m:["Kemandirian"],d:"Mulai hari dengan tenang dan tidak terburu-buru.",c:["Bangun sebelum pukul 05.00","Bangun sesudah pukul 05.00","Merapikan tempat tidur","Menyiapkan perlengkapan sekolah"]},
 {n:"Beribadah",e:"🙏",f:"#A78BFA",m:["Keimanan dan ketakwaan"],d:"Menjalankan ibadah sesuai keyakinanmu.",c:["Ibadah wajib tepat waktu","Berdoa sebelum kegiatan","Kegiatan keagamaan bersama keluarga"]},
-{n:"Berolahraga",e:"🏃",f:"#A8E6CF",m:["Kesehatan","Kemandirian"],d:"Gerakkan tubuh agar sehat dan bertenaga.",c:["Senam atau jogging","Olahraga bersama teman","Peregangan 10 menit"]},
+{n:"Berolahraga",e:"🏃",f:"#A8E6CF",m:["Kesehatan","Kemandirian"],d:"Gerakkan tubuh agar sehat dan bertenaga.",c:["Senam atau jogging","Jalan kaki 1.000 langkah","Olahraga bersama teman","Peregangan 10 menit"]},
 {n:"Makan sehat dan bergizi",e:"🥗",f:"#FF9B91",m:["Kesehatan"],d:"Pilih makanan yang menyehatkan dan cukup.",c:["Sarapan bergizi","Makan sayur atau buah","Minum air putih cukup"]},
 {n:"Gemar belajar",e:"📚",f:"#A9D6F5",m:["Penalaran kritis","Kreativitas","Komunikasi"],d:"Belajar itu seru, apalagi kalau penasaran.",c:["Membaca buku 15 menit","Mengulang pelajaran","Belajar hal baru sendiri"]},
-{n:"Bermasyarakat",e:"🤝",f:"#FFD3A6",m:["Kewargaan","Kolaborasi","Komunikasi"],d:"Peduli dan berbuat baik untuk orang di sekitarmu.",c:["Membantu pekerjaan rumah","Kerja bakti lingkungan","Menolong tetangga"]},
+{n:"Bermasyarakat",e:"🤝",f:"#FFD3A6",m:["Kewargaan","Kolaborasi","Komunikasi"],d:"Peduli dan berbuat baik untuk orang di sekitarmu.",c:["Membantu pekerjaan rumah","Piket kelas","Mengikuti ekskul","Menolong tetangga"]},
 {n:"Tidur cepat",e:"🌙",f:"#C3C9F5",m:["Kemandirian","Kesehatan"],d:"Istirahat cukup supaya besok segar.",c:["Bersiap tidur tepat waktu","Mematikan gawai lebih awal","Tidur di waktu teratur"]}];
 const ic={chart:'<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',plus:'<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',back:'<svg viewBox="0 0 24 24"><path d="M20 12H5M11 6l-6 6 6 6"/></svg>'};
 const fab=(c,id,l,i)=>`<button class="fab ${c}" id="${id}" aria-label="${l}" title="${l}">${i}</button>`;
@@ -156,7 +156,7 @@ $("#root").innerHTML=`<div class="lg-wrap" style="text-align: center;">
     <div class="err" id="le" role="alert"></div>
     <button class="btn full" id="lb" type="submit" style="margin-top:1rem; font-size: 1.05rem;">Masuk</button>
   </form>
-  <p class="mute" style="margin-top:1.2rem; font-size: 0.85rem;">Lupa kata sandi? Minta wali kelas untuk mengatur ulang.</p>
+  <p class="mute" style="margin-top:1.2rem; font-size: 0.85rem;">${sis?"Lupa kata sandi? Minta wali kelas untuk mengatur ulang.":"Lupa kata sandi? Hubungi admin SIKAP 36 di sekolah."}</p>
 </div>`;
 document.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{S.lrole=b.dataset.r;loginView()});
 $("#showpw").onchange=e=>{$("#upw").type=e.target.checked?"text":"password"};
@@ -184,7 +184,7 @@ ${fab("fl","gp","Lihat progres saya",ic.chart)}${fab("fr","gr","Tulis refleksi h
 function detailS(){const i=S.hid,h=H[i],d=emap()[i];return `${topbar()}<button class="btn sec" id="bk" style="margin-top:1rem;min-height:40px;padding:.3rem 1rem;font-size:.9rem">← Kembali</button><div style="display:flex;gap:.8rem;align-items:center;margin:1rem 0 .6rem"><span class="ic" style="--f:${h.f}" aria-hidden="true">${h.e}</span><h2 style="font-size:1.6rem">${h.n}</h2></div><p style="margin:.2rem 0">${h.d}</p>
 <p class="mute" style="margin:.4rem 0 0">Melatih:</p><div>${h.m.map(x=>`<span class="chip">${x}</span>`).join("")}</div><p class="mute" style="margin:.3rem 0 0;font-size:.8rem">Pemetaan awal mengikuti contoh Panduan Kokurikuler. Dimensi sebenarnya ditetapkan guru untuk tiap tema.</p>
 <form class="card" id="fj" style="margin-top:1rem" novalidate><fieldset style="border:0;padding:0;margin:0"><legend style="margin-top:0">Aktivitas apa yang kamu lakukan hari ini? <span class="mute" style="font-weight:600">(boleh lebih dari satu)</span></legend><div class="opts">${h.c.concat(["Lainnya (tulis di catatan)"]).map(c=>`<label class="opt"><input type="checkbox" name="a" value="${esc(c)}" ${d&&d.activity&&d.activity.split("; ").includes(c)?"checked":""}>${esc(c)}</label>`).join("")}</div></fieldset>
-<label for="nt">Catatan singkat (boleh dikosongkan)</label><input type="text" id="nt" maxlength="160" value="${d?esc(d.note):""}"><div class="err" id="je" role="alert"></div>
+${i===6?`<label for="rt">Rencana kamu akan tidur pukul berapa?</label><input type="time" id="rt" value="${esc(((d&&d.activity?d.activity.split("; ").find(x=>x.startsWith("Rencana tidur pukul ")):"")||"").replace("Rencana tidur pukul ","").replace(".",":"))}">`:""}<label for="nt">Catatan singkat (boleh dikosongkan)</label><input type="text" id="nt" maxlength="160" value="${d?esc(d.note):""}"><div class="err" id="je" role="alert"></div>
 <div style="display:flex;gap:.6rem;margin-top:1rem;flex-wrap:wrap"><button class="btn" type="submit" id="jb">${d&&d.status==="dicatat"?"Perbarui jurnal":"Simpan jurnal"}</button><button class="btn sec" type="button" id="sk">Lewati hari ini</button></div></form>
 <h3 class="sec" style="margin-top:1.4rem">Riwayat</h3>${S.entries.filter(e=>e.habit===i+1&&e.activity).sort((a,b)=>b.entry_date.localeCompare(a.entry_date)).slice(0,10).map(e=>`<div class="hi"><strong>${dLabel(e.entry_date)}</strong><br>${esc(e.activity)}${e.note?` · ${esc(e.note)}`:""}</div>`).join("")||'<p class="mute">Belum ada riwayat. Catatan pertamamu akan muncul di sini.</p>'}`}
 function ringsvg(p){const c=2*Math.PI*78;return `<svg viewBox="0 0 200 200" role="img" aria-label="Rata-rata kebiasaan dicatat ${p} persen"><circle cx="100" cy="100" r="78" fill="none" stroke="var(--cor)" stroke-width="18"/><circle cx="100" cy="100" r="78" fill="none" stroke="var(--pri)" stroke-width="18" stroke-linecap="round" stroke-dasharray="${c*p/100} ${c}" transform="rotate(-90 100 100)"/><text x="100" y="100">${p}%</text></svg>`}
@@ -212,7 +212,7 @@ document.querySelectorAll("[data-s]").forEach(b=>b.onclick=async()=>{const i=+b.
 if(d&&d.status==="dicatat"){const {error}=await sb.from("habit_entries").delete().eq("student_id",S.student.id).eq("entry_date",T()).eq("habit",i+1);if(error){b.disabled=false;toast("Gagal membatalkan. Coba lagi.");return}setLocal(i,null);S.pop=null;renderS();toast("Catatan dibatalkan.")}
 else if(await upsertEntry(i,{})){S.pop=i;renderS();toast("Tercatat. Kerja bagus!")}else b.disabled=false});
 const sk=$("#sk");if(sk)sk.onclick=async()=>{if(await upsertEntry(S.hid,{status:"dilewati"})){go("home");toast("Tidak apa-apa, boleh dilewati.")}};
-const fj=$("#fj");if(fj)fj.onsubmit=async e=>{e.preventDefault();const as=[...fj.querySelectorAll("[name=a]:checked")].map(x=>x.value);if(!as.length){$("#je").textContent="Pilih minimal satu aktivitas (boleh lebih dari satu).";return}
+const fj=$("#fj");if(fj)fj.onsubmit=async e=>{e.preventDefault();const as=[...fj.querySelectorAll("[name=a]:checked")].map(x=>x.value);const rt=$("#rt")?$("#rt").value:"";if(rt)as.push("Rencana tidur pukul "+rt.replace(":","."));if(!as.length){$("#je").textContent=S.hid===6?"Pilih aktivitas atau isi rencana jam tidurmu.":"Pilih minimal satu aktivitas (boleh lebih dari satu).";return}
 const i=S.hid;$("#jb").disabled=true;if(await upsertEntry(i,{activity:as.join("; "),note:$("#nt").value.trim()||null})){S.pop=i;go("home");toast("Tersimpan. Kamu melatih: "+H[i].m.join(", "))}else $("#jb").disabled=false}}
 
 /* ---------- GURU ---------- */
@@ -270,7 +270,7 @@ return `<section class="rp"><div class="rhd"><img src="${EMB}" alt="" width="46"
 <p class="rn">Skala rubrik mengikuti contoh Panduan Kokurikuler BSKAP 2025: Kurang, Cukup, Baik, Sangat Baik. Level ditetapkan wali kelas dari refleksi, observasi, dan bukti kegiatan. Hanya jumlah hari yang ditampilkan, isi jurnal pribadi tidak dicantumkan.</p>
 <div class="rcols"><div><h3 class="rh" style="color:#6b4fd6">Refleksi pilihan siswa</h3><p class="rq">${pick?`“${esc(pick.pengalaman)}” Rencana: ${esc(pick.perbaikan)}`:"Belum ada refleksi bulan ini."}</p></div><div><h3 class="rh" style="color:#C2453A">Catatan wali kelas</h3><p class="rq" style="font-style:normal">${note?esc(note):"Belum ada catatan."}</p></div></div>
 <div class="rdate">Bandung, ........................ ${y}</div>
-<div class="rsig"><div><p>Orang tua/wali siswa</p><div class="rline"></div><small>Nama terang</small></div><div><p>Wali kelas</p><div class="rline"></div><b>${esc(S.profile.nama)}</b><small>${S.profile.nip?"NIP. "+esc(S.profile.nip):"Nama dan NIP"}</small></div></div>
+<div class="rsig"><div><p>Orang tua/wali siswa</p><div class="rline"></div></div><div><p>Wali kelas</p><div class="rline"></div><b>${esc(S.profile.nama)}</b>${S.profile.nip?`<small>NIP. ${esc(S.profile.nip)}</small>`:""}</div></div>
 <div class="rft">SIKAP 36 · Mengacu Panduan Kokurikuler BSKAP 2025. Memuat data pribadi siswa, mohon dijaga kerahasiaannya.</div></section>`}
 function printG(){return `<div class="noprint"><div class="top"><button class="btn sec" id="pk">← Kembali</button><button class="btn" id="pb">Cetak / Simpan PDF</button></div><p class="mute">Pratinjau laporan. Di jendela cetak pilih ukuran A4 dan nyalakan "Grafik latar" agar warna ikut tercetak. Untuk PDF, pilih tujuan "Simpan sebagai PDF".</p></div>${S.psids.map(id=>reportHTML(S.studs.find(x=>x.id===id))).join("")}`}
 function openPrint(ids){S.psids=ids;S.gv="print";S.title0=S.title0||document.title;const k=S.cls?`${S.cls.tingkat}${S.cls.nama}`:"";document.title=ids.length===1?`Laporan SIKAP 36 - ${nameOf(ids[0])} - ${bulanLabel(S.periode)}`:`Laporan SIKAP 36 kelas ${k} - ${bulanLabel(S.periode)}`;renderG();scrollTo(0,0)}
